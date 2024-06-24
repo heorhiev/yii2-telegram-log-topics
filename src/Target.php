@@ -215,7 +215,7 @@ class Target extends \yii\log\Target
                 'value' => function (Message $message) {
                     $stackTrace = $message->getStackTrace();
 
-                    if (mb_strlen($stackTrace, 'UTF-8') > $this->stackTraceLength) {
+                    if ($this->stackTraceLength && mb_strlen($stackTrace, 'UTF-8') > $this->stackTraceLength) {
                         $stackTrace = mb_substr($stackTrace, 0, $this->stackTraceLength, '', 'UTF-8');
                         $stackTrace .= '...';
                     }

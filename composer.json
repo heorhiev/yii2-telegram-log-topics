@@ -20,7 +20,7 @@
     "require": {
         "yiisoft/yii2": "~2.0.2",
         "yiisoft/yii2-httpclient": "~2.0.0",
-        "heorhiev/yii2-log-message": "^2.0"
+        "sergeymakinen/yii2-log-message": "^2.0"
     },
     "require-dev": {
         "heorhiev/yii2-tests": "^2.0"
