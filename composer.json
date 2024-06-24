@@ -1,13 +1,13 @@
 {
-    "name": "sergeymakinen/yii2-telegram-log",
-    "homepage": "https://github.com/sergeymakinen/yii2-telegram-log",
-    "description": "Telegram log target for Yii 2",
+    "name": "heorhiev/yii2-telegram-log-topics",
+    "homepage": "https://github.com/heorhiev/yii2-telegram-log-topics",
+    "description": "Telegram log target for Yii 2 use telegram topics",
     "keywords": ["yii2-telegram-log", "yii2", "yii", "telegram", "log", "logging"],
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/sergeymakinen/yii2-telegram-log/issues",
-        "source": "https://github.com/sergeymakinen/yii2-telegram-log"
+        "issues": "https://github.com/heorhiev/yii2-telegram-log-topics/issues",
+        "source": "https://github.com/heorhiev/yii2-telegram-log-topics"
     },
     "authors": [
         {
@@ -20,19 +20,19 @@
     "require": {
         "yiisoft/yii2": "~2.0.2",
         "yiisoft/yii2-httpclient": "~2.0.0",
-        "sergeymakinen/yii2-log-message": "^2.0"
+        "heorhiev/yii2-log-message": "^2.0"
     },
     "require-dev": {
-        "sergeymakinen/yii2-tests": "^2.0"
+        "heorhiev/yii2-tests": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "sergeymakinen\\yii\\telegramlog\\": "src"
+            "heorhiev\\yii\\telegramlog\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "sergeymakinen\\yii\\telegramlog\\tests\\": "tests"
+            "heorhiev\\yii\\telegramlog\\tests\\": "tests"
         }
     }
 }
