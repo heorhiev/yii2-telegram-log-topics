@@ -39,7 +39,7 @@ class Target extends \yii\log\Target
 
     public $threadId;
 
-    public $stackTraceLength = 1400;
+    public $textLength = 700;
 
     /**
      * @var string log message template.
@@ -213,14 +213,7 @@ class Target extends \yii\log\Target
                 'short' => false,
                 'wrapAsCode' => true,
                 'value' => function (Message $message) {
-                    $stackTrace = $message->getStackTrace();
-
-                    if ($this->stackTraceLength && mb_strlen($stackTrace, 'UTF-8') > $this->stackTraceLength) {
-                        $stackTrace = mb_substr($stackTrace, 0, $this->stackTraceLength, '', 'UTF-8');
-                        $stackTrace .= '...';
-                    }
-
-                    return $stackTrace;
+                    return self::dropText($message->getStackTrace(), $this->textLength);
                 },
             ],
             'text' => [
@@ -228,7 +221,7 @@ class Target extends \yii\log\Target
                 'short' => false,
                 'wrapAsCode' => true,
                 'value' => function (Message $message) {
-                    return $message->getText();
+                    return self::dropText($message->getText(), $this->textLength);
                 },
             ],
         ];
@@ -262,5 +255,15 @@ class Target extends \yii\log\Target
             $value = "{$config['emojiTitle']} {$value}";
         }
         return $value;
+    }
+
+
+    private static function dropText($text, $length)
+    {
+        if ($length && mb_strlen($text) > $length) {
+            $text = mb_substr($text, 0, $length) .  '...';
+        }
+
+        return $text;
     }
 }
