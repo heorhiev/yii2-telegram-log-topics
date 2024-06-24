@@ -7,7 +7,7 @@
  * @license   https://github.com/sergeymakinen/yii2-telegram-log/blob/master/LICENSE MIT License
  */
 
-namespace sergeymakinen\yii\telegramlog;
+namespace heorhiev\yii\telegramlog;
 
 use sergeymakinen\yii\logmessage\Message;
 use yii\base\InvalidValueException;
