@@ -37,6 +37,10 @@ class Target extends \yii\log\Target
      */
     public $chatId;
 
+    public $threadId;
+
+    public $stackTraceLength = 1400;
+
     /**
      * @var string log message template.
      */
@@ -130,11 +134,17 @@ class Target extends \yii\log\Target
             'disable_web_page_preview' => true,
             'disable_notification' => false,
         ];
+
+        if ($this->threadId) {
+            $request['message_thread_id'] = $this->threadId;
+        }
+
         if (isset($this->enableNotification[$message->message[1]])) {
             $request['disable_notification'] = !$this->enableNotification[$message->message[1]];
         } elseif (is_bool($this->enableNotification)) {
             $request['disable_notification'] = !$this->enableNotification;
         }
+
         $request['text'] = preg_replace_callback('/{([^}]+)}([\n]*|$)/', function (array $matches) use ($message) {
             if (isset($this->substitutions[$matches[1]])) {
                 $value = $this->substitute($matches[1], $message);
@@ -144,6 +154,7 @@ class Target extends \yii\log\Target
             }
             return '';
         }, $this->template);
+
         return $request;
     }
 
@@ -202,7 +213,14 @@ class Target extends \yii\log\Target
                 'short' => false,
                 'wrapAsCode' => true,
                 'value' => function (Message $message) {
-                    return $message->getStackTrace();
+                    $stackTrace = $message->getStackTrace();
+
+                    if (mb_strlen($stackTrace, 'UTF-8') > $this->stackTraceLength) {
+                        $stackTrace = mb_substr($stackTrace, 0, $this->stackTraceLength, '', 'UTF-8');
+                        $stackTrace .= '...';
+                    }
+
+                    return $stackTrace;
                 },
             ],
             'text' => [
