@@ -196,16 +196,20 @@ class Target extends \yii\log\Target
                 'short' => true,
                 'wrapAsCode' => false,
                 'value' => function (Message $message) {
-                    $value = [];
-                    $ip = $message->getUserIp();
-                    if ((string) $ip !== '') {
-                        $value[] = $ip;
+                    try {
+                        $value = [];
+                        $ip = $message->getUserIp();
+                        if ((string) $ip !== '') {
+                            $value[] = $ip;
+                        }
+                        $id = $message->getUserId();
+                        if ((string) $id !== '') {
+                            $value[] = "ID: `{$id}`";
+                        }
+                        return implode(str_repeat(' ', 4), $value);
+                    } catch (\Exception $exception) {
+                        return '';
                     }
-                    $id = $message->getUserId();
-                    if ((string) $id !== '') {
-                        $value[] = "ID: `{$id}`";
-                    }
-                    return implode(str_repeat(' ', 4), $value);
                 },
             ],
             'stackTrace' => [
